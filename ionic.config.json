@@ -1,0 +1,7 @@
+{
+  "name": "test_net6",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
