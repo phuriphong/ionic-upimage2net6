@@ -34,12 +34,7 @@ export class Tab1Page {
       resultType: CameraResultType.Uri
     });
 
-    // image.webPath will contain a path that can be set as an image src.
-    // You can access the original file using image.path, which can be
-    // passed to the Filesystem API to read the raw data of the image,
-    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
     var imageUrl = image.webPath;
-    // Can be set to the src of an image now
     this.imageElement.src = imageUrl;
 
   }
@@ -49,44 +44,7 @@ export class Tab1Page {
     let blob = await fetch(this.imageElement.src).then(r => r.blob());
     this.ImgUp(blob,'https://localhost:7139/api/App/SaveQR_Daily',token).subscribe(d=>alert('ok'))
   }
-//   dataURLtoFile(dataurl: string, filename: string) {
-//     let arr = dataurl.split(',');
 
-//       let  mime = arr[0].match(/:(.*?);/)?[1]
-//       ,bstr = atob(arr[1]),
-//          n = bstr.length,
-//          u8arr = new Uint8Array(n);
-//     while (n--) {
-//         u8arr[n] = bstr.charCodeAt(n);
-//     }
-//     return new File([u8arr], filename, {type: mime});
-// }
-  dataURItoBlob(dataURI: string) {
-  // convert base64 to raw binary data held in a string
-  // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-  var byteString = atob(dataURI.split(',')[1]);
-
-  // separate out the mime component
-  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-  // write the bytes of the string to an ArrayBuffer
-  var ab = new ArrayBuffer(byteString.length);
-  var ia = new Uint8Array(ab);
-  for (var i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-  }
-
-  //Old Code
-  //write the ArrayBuffer to a blob, and you're done
-  //var bb = new BlobBuilder();
-  //bb.append(ab);
-  //return bb.getBlob(mimeString);
-
-  //New Code
-  return new Blob([ab], {type: mimeString});
-
-
-}
   public ImgUp(data: any,url: any,token: string)
   {
     const httpOptions = {
